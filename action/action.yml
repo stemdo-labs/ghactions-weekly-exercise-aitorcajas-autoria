@@ -6,7 +6,7 @@ inputs:
   version:
    required: true
 outputs:
- image-name: 
+ image_name: 
   value: ${{steps.nombre_imagen.outputs.image_name}}
 
 runs:
