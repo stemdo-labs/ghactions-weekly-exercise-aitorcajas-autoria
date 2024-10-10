@@ -17,3 +17,7 @@ runs:
     NOMBRE_IMAGEN="${{inputs.username}}/${{inputs.image_name}}:${{steps.version}}"
     echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_ENV
    shell: bash
+
+ - name: Imprimir
+   steps:
+   - run: echo "${{steps.nombre_imagen.outputs.image_name}}"
