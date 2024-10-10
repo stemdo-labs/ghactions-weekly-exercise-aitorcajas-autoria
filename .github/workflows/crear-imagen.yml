@@ -12,3 +12,7 @@ jobs:
   - name: Cargar nombre imagen
     id: cargar
     uses: ./action
+    
+  - name: Imprimir
+    run: echo ${{steps.nombre_imagen.outputs.image_name}}
+    shell: bash
