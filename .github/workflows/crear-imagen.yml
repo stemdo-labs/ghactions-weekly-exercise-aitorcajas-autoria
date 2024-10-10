@@ -12,7 +12,3 @@ jobs:
   - name: Cargar nombre imagen
     id: cargar
     uses: ./action
- 
-  - name: Prueba
-    run: echo "${{steps.cargar.outputs.image_name}}"
-    
