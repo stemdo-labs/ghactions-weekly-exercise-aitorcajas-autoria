@@ -30,7 +30,7 @@ runs:
     echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUT
    shell: bash
 
-outputs:
- image_name: ${{env.image_name}}
+ outputs:
+  image_name: ${{steps.nombre_imagen.outputs.image_name}}
 
  
