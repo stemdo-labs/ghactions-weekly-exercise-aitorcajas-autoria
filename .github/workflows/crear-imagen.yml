@@ -27,7 +27,6 @@ jobs:
     id: cargar_imagen
     uses: ./action
     with:
-     username: hola
      image_name: ${{steps.nombre.outputs.app_name}}
      version: ${{steps.version.outputs.app_version}}
 
