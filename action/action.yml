@@ -30,7 +30,3 @@ runs:
     NOMBRE_IMAGEN="${{inputs.username}}/${{steps.nombre.outputs.app_name}}:${{steps.version.outputs.app_version}}"
     echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUT
    shell: bash
-
- - name: Imprimir
-   run: echo ${{steps.nombre_imagen.outputs.image_name}}
-   shell: bash
