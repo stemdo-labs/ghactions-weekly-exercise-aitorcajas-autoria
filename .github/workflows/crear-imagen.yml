@@ -7,7 +7,7 @@ jobs:
  cargar:
   runs-on: ubuntu-latest
   outputs:
-   image_name: ${{steps.cargar_imagen.outputs.image_name}}
+   image_name: ${{steps.nombre_imagen.outputs.image_name}}
   steps:
   - uses: actions/checkout@v3
   
