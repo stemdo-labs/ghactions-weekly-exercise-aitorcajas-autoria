@@ -31,4 +31,4 @@ jobs:
      image_name: ${{steps.nombre.outputs.app_name}}
      version: ${{steps.version.outputs.app_version}}
 
-  - run: echo "{{env.image_name}}"
+  - run: echo "${{env.image_name}}"
