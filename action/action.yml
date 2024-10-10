@@ -18,5 +18,5 @@ runs:
     echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_ENV
    shell: bash
 
-outputs:
+ outputs:
   image_name: ${{ steps.nombre_imagen.outputs.image_name }}
