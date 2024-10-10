@@ -7,8 +7,6 @@ inputs:
 
 runs:
  using: "composite"
- outputs:
-   image_name: ${{steps.nombre_imagen.outputs.image_name}}
  steps:
  - name: Extraer version
    id: version
