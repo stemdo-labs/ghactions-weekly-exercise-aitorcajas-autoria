@@ -1,32 +1,19 @@
 name: Action para crear imagen y tagearla
 
 inputs:
- username:
-  required: true
-  default: usuario
+  username:
+   required: true
+  image_name:
+   required: true
+  version:
+   required: true
 
 runs:
  using: "composite"
  steps:
- - name: Extraer version
-   id: version
-   run: |
-    VERSION=$(jq -r '.version' package.json)
-    echo "VERSION=$VERSION" >> $GITHUB_ENV
-    echo "app_version=$VERSION" >> $GITHUB_OUTPUT
-   shell: bash
-
- - name: Extraer nombre
-   id: nombre
-   run: |
-    NOMBRE=$(jq -r '.name' package.json)
-    echo "NOMBRE=$NOMBRE" >> $GITHUB_ENV
-    echo "app_name=$NOMBRE" >> $GITHUB_OUTPUT
-   shell: bash
-
  - name: Nombre tageado de la imagen
    id: nombre_imagen
    run: |
-    NOMBRE_IMAGEN="${{inputs.username}}/${{steps.nombre.outputs.app_name}}:${{steps.version.outputs.app_version}}"
-    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUT
+    NOMBRE_IMAGEN="${{inputs.username}}/${{inputs.image_name}}:${{steps.version}}"
+    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_ENV
    shell: bash
