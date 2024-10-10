@@ -1,0 +1,18 @@
+name: Action para crear imagen y tagearla
+
+inputs:
+ tag:
+  default: latest
+
+runs:
+ using: "composite"
+ steps:
+ - name: Extraer version
+   id: version
+   run: |
+    VERSION=$(jq -r '.version' package.json)
+    echo "VERSION=$VERSION" >> $GITHUB_ENV
+    echo "app_version=$VERSION" >> $GITHUB_OUTPUT
+
+ - name: Mostrar version
+   run: echo "{{steps.version.outputs.app_version}}" 

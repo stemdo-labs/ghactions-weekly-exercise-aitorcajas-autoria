@@ -1,0 +1,12 @@
+name: Workflow para crear la imagen
+
+on:
+ workflow_dispatch:
+
+jobs:
+ Crear:
+  runs-on: ubuntu-latest
+  steps:
+  - uses: actions/checkout@v3
+  
+  - uses: ./action
