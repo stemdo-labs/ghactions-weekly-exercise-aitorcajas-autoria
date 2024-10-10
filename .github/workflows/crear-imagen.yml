@@ -12,8 +12,6 @@ jobs:
   - name: Cargar nombre imagen
     id: cargar
     uses: ./action
-    with:
-     username: ${{secrets.DOCKERHUB_USERNAME}}
  
   - name: Prueba
     run: echo "${{steps.cargar.outputs.image_name}}"
