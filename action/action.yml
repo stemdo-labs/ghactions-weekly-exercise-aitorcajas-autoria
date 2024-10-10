@@ -12,6 +12,6 @@ runs:
  - name: Nombre tageado de la imagen
    id: nombre_imagen
    run: |
-    NOMBRE_IMAGEN="${{secrets.DOCKERHUB_USERNAME}}/${{inputs.image_name}}:${{inputs.version}}"
+    NOMBRE_IMAGEN="${{vars.DOCKERHUB_USERNAME}}/${{inputs.image_name}}:${{inputs.version}}"
     echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_ENV
    shell: bash
