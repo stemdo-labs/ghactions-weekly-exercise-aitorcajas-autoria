@@ -16,5 +16,5 @@ runs:
    id: nombre_imagen
    run: |
     NOMBRE_IMAGEN="${{env.username}}/${{inputs.image_name}}:${{inputs.version}}"
-    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUTS
+    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUT
    shell: bash
