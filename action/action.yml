@@ -1,8 +1,8 @@
 name: Action para crear imagen y tagearla
 
 inputs:
- tag:
-  default: latest
+ username:
+  required: true
 
 runs:
  using: "composite"
@@ -26,7 +26,7 @@ runs:
  - name: Nombre tageado de la imagen
    id: nombre_imagen
    run: |
-    NOMBRE_IMAGEN="${{secrets.DOCKERHUB_USERNAME}}/${{steps.nombre.outputs.app_name}}:${{steps.version.outputs.app_version}}"
+    NOMBRE_IMAGEN="${{inputs.username}}/${{steps.nombre.outputs.app_name}}:${{steps.version.outputs.app_version}}"
     echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUT
    shell: bash
 
