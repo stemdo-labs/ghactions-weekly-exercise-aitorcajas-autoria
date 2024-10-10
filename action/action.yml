@@ -5,6 +5,8 @@ inputs:
    required: true
   version:
    required: true
+outputs:
+ image-name: ${{steps.nombre_imagen.outputs.image_name}}
 
 runs:
  using: "composite"
@@ -13,5 +15,5 @@ runs:
    id: nombre_imagen
    run: |
     NOMBRE_IMAGEN="${{env.username}}/${{inputs.image_name}}:${{inputs.version}}"
-    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_ENV
+    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUTS
    shell: bash
