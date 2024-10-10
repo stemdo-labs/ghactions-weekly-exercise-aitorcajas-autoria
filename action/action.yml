@@ -33,8 +33,3 @@ runs:
 
  - name: Imprimir
    run: echo ${{steps.nombre_imagen.outputs.image_name}}
-
- outputs:
-  image_name: ${{steps.nombre_imagen.outputs.image_name}}
-
- 
