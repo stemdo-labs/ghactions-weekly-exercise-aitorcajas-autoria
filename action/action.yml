@@ -6,7 +6,8 @@ inputs:
   version:
    required: true
 outputs:
- image-name: ${{steps.nombre_imagen.outputs.image_name}}
+ image-name: 
+  value: ${{steps.nombre_imagen.outputs.image_name}}
 
 runs:
  using: "composite"
