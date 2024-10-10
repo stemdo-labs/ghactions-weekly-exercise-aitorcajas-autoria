@@ -27,7 +27,7 @@ jobs:
     id: cargar_imagen
     uses: ./action
     env:
-     username: ${{vars.DOCKERHUB_USERNAME}}
+     username: ${{vars.DOCKERHUB_USER}}
     with:
      image_name: ${{steps.nombre.outputs.app_name}}
      version: ${{steps.version.outputs.app_version}}
