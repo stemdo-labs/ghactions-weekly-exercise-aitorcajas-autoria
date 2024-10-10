@@ -10,14 +10,25 @@ jobs:
    image_name: ${{steps.nombre_imagen.outputs.image_name}}
   steps:
   - uses: actions/checkout@v3
-  
+
+  - name: Extraer version
+    id: version
+    run: |
+     VERSION=$(jq -r '.version' package.json)
+     echo "VERSION=$VERSION" >> $GITHUB_ENV
+     echo "app_version=$VERSION" >> $GITHUB_OUTPUT
+
+  - name: Extraer nombre
+    id: nombre
+    run: |
+     NOMBRE=$(jq -r '.name' package.json)
+     echo "NOMBRE=$NOMBRE" >> $GITHUB_ENV
+     echo "app_name=$NOMBRE" >> $GITHUB_OUTPUT
+    
   - name: Cargar nombre imagen
     id: cargar_imagen
     uses: ./action
-
- imprimir:
-  runs-on: ubuntu-latest
-  needs: cargar
-  steps:
-  - name: Imprimir
-    run: echo ${{needs.cargar.outputs.image_name}}
+    with:
+     username: ${{secrets.DOCKERHUB_USERNAME}}
+     image_name: ${{steps.nombre.outputs.app_name}}
+     version: ${{steps.version.outputs.app_version}}
