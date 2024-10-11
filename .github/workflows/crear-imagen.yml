@@ -6,6 +6,8 @@ on:
 jobs:
  cargar:
   runs-on: ubuntu-latest
+  outputs:
+   image_name: ${{steps.cargar_imagen.outputs.image_name}}
   steps:
   - uses: actions/checkout@v3
 
@@ -48,4 +50,10 @@ jobs:
   runs-on: ubuntu-latest
   needs: cargar
   if: github.ref == 'refs/heads/main'
-  
+  environment: producción
+  steps:
+  - name: Descargar imagen
+    run: docker pull ${{needs.cargar.outputs.image_name}}
+
+  - name: Desplegar contenedor
+    run: docker run -d --name contenedor ${{needs.cargar.outputs.image_name}}
