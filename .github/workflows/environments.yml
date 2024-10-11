@@ -2,28 +2,28 @@ name: Denominar entornos
 
 on:
  workflow_call:
-  outputs: 
+  outputs:
    entorno:
-    value: ${{jobs.entorno.outputs.entorno}}
+    value: ${{ jobs.elegir_entorno.outputs.entorno }}
 
 jobs:
- entorno:
+ elegir_entorno:
   runs-on: ubuntu-latest
   outputs:
-   entorno: ${{steps.elegir.outputs.entorno}}
+   entorno: ${{ steps.set_entorno.outputs.entorno }}
   steps:
+  - name: Obtener rama actual
+    id: get_ref
+    run: echo "GITHUB_REF=${GITHUB_REF}"
+
   - name: Elegir entorno
-    id: elegir
+    id: set_entorno
     run: |
-     REF="${{ github.ref }}"
-     echo "$REF"
-     if [ "$REF" = "refs/heads/main" ]; then
-      echo ENTORNO="producción" >> GITHUB_ENV
-      echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
-     elif [ "$REF" = "refs/heads/development" ]; then
-      echo ENTORNO="UAT" >> GITHUB_ENV
-      echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
+     if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+      echo "entorno=producción" >> $GITHUB_OUTPUT
+     elif [[ "${GITHUB_REF}" == "refs/heads/development" ]]; then
+      echo "entorno=UAT" >> $GITHUB_OUTPUT
      fi
 
-  - name: Mostrar
-    run: echo "${{steps.elegir.outputs.entorno}}"
+  - name: Mostrar entorno elegido
+    run: echo "El entorno elegido es ${{ steps.set_entorno.outputs.entorno }}"
