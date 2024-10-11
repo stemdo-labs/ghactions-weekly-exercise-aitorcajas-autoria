@@ -12,7 +12,7 @@ on:
 
 jobs:
  tests:
-  if: "${{inputs.entorno}}" != "UAT"
+  if: github.ref != 'refs/heads/development'
   runs-on: ubuntu-latest
   environment: ${{inputs.entorno}}
   steps: 
@@ -24,7 +24,7 @@ jobs:
 
  ci:
   runs-on: ubuntu-latest
-  #if: ${{ always() }}
+  if: ${{ always() }}
   needs: tests
   environment: ${{inputs.entorno}}
   outputs:
