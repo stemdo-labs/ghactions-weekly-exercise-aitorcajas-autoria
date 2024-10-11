@@ -11,7 +11,7 @@ jobs:
   needs: entornos
   uses: ./.github/workflows/workflowCI.yml
   with:
-   entorno: ${{needs.entorno.outputs.entorno}}
+   entorno: ${{needs.entornos.outputs.entorno}}
   secrets: inherit
 
  descargar:
