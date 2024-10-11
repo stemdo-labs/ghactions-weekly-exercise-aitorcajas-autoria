@@ -4,8 +4,14 @@ on:
  workflow_dispatch:
 
 jobs:
+ entornos:
+  uses: ./.github/workflows/environments.yml
+
  cargar:
+  needs: entornos
   uses: ./.github/workflows/workflowCI.yml
+  with:
+   entorno: ${{needs.entorno.outputs.entorno}}
   secrets: inherit
 
  descargar:
