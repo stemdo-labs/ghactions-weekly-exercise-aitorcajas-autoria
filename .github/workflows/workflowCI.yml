@@ -4,7 +4,7 @@ on:
  workflow_call:
   outputs:
    image_name_ci: 
-    value: ${{steps.cargar_imagen.outputs.image_name}}
+    value: ${{steps.tag.outputs.image_name_ci}}
 
 jobs:
  ci:
