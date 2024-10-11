@@ -1,0 +1,20 @@
+name: Action para crear imagen y tagearla
+
+inputs:
+  image_name:
+   required: true
+  version:
+   required: true
+outputs:
+ image_name: 
+  value: ${{steps.nombre_imagen.outputs.image_name}}
+
+runs:
+ using: "composite"
+ steps:
+ - name: Nombre tageado de la imagen
+   id: nombre_imagen
+   run: |
+    NOMBRE_IMAGEN="${{env.username}}/${{inputs.image_name}}:${{inputs.version}}"
+    echo "image_name=$NOMBRE_IMAGEN" >> $GITHUB_OUTPUT
+   shell: bash
