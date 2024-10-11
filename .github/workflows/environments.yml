@@ -17,10 +17,10 @@ jobs:
     run: |
      REF="${{ github.ref }}"
      echo "$REF"
-     if [ "$REF" == "refs/heads/main" ]; then
+     if [ "$REF" = "refs/heads/main" ]; then
       echo ENTORNO="producción" >> GITHUB_ENV
       echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
-     elif [ "$REF" == "refs/heads/development" ]; then
+     elif [ "$REF" = "refs/heads/development" ]; then
       echo ENTORNO="UAT" >> GITHUB_ENV
       echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
      fi
