@@ -7,6 +7,17 @@ on:
     value: ${{jobs.ci.outputs.image_name_ci}}
 
 jobs:
+ tests:
+  if: github.ref == 'refs/heads/main'
+  environment: producción
+  runs-on: ubuntu-latest
+  steps: 
+  - name: Ejecutar tests
+    run: |
+     echo "Se van a ejecutar los tests"
+     sleep 10
+     echo "Los tests han sido ejecutados"
+
  ci:
   runs-on: ubuntu-latest
   outputs:
