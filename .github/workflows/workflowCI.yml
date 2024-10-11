@@ -35,6 +35,12 @@ jobs:
      image_name: ${{steps.nombre.outputs.app_name}}
      version: ${{steps.version.outputs.app_version}}
 
+  - name: Nombre tageado de la imagen
+    id: tag
+    run: |
+     TAG_IMAGEN="${{steps.cargar_imagen.outputs.image_name}}"
+     echo "image_name_ci=$TAG_IMAGEN" >> $GITHUB_OUTPUT   
+
   - name: Build de la imagen
     run: docker build -t ${{steps.cargar_imagen.outputs.image_name}} .
 
