@@ -10,8 +10,6 @@ jobs:
    image_name_ci: ${{steps.cargar_imagen.outputs.image_name_ci}}
    
   steps:
-  - uses: actions/checkout@v3
-
   - name: Extraer version
     id: version
     run: |
