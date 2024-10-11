@@ -15,6 +15,7 @@ jobs:
   - name: Elegir entorno
     id: elegir
     run: |
+     echo "${{github.ref}}"
      if [ "${{github.ref}}" == "refs/heads/main" ]; then
       echo ENTORNO="producción" >> GITHUB_ENV
       echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
