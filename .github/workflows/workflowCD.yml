@@ -1,0 +1,21 @@
+name: CD
+
+on:
+ workflow_call:
+  inputs:
+   image_name:
+   required: true
+
+jobs:
+ cd:
+  runs-on: ubuntu-latest
+  environment: producción
+  steps:
+  - name: Descargar imagen
+    run: docker pull ${{inputs.image_name}}
+
+  - name: Desplegar contenedor
+    run: docker run -d -p 80:8080 --name contenedor ${{inputs.image_name}}
+
+  - name: Hacer curl
+    run: curl -I http://localhost:80
