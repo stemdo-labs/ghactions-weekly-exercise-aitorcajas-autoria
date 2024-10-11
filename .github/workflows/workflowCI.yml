@@ -1,0 +1,52 @@
+name: CI
+
+on:
+ workflow_call:
+
+jobs:
+ ci:
+  runs-on: ubuntu-latest
+  outputs:
+   image_name_ci: ${{steps.cargar_imagen.outputs.image_name_ci}}
+   
+  steps:
+  - uses: actions/checkout@v3
+
+  - name: Extraer version
+    id: version
+    run: |
+     VERSION=$(jq -r '.version' package.json)
+     echo "VERSION=$VERSION" >> $GITHUB_ENV
+     echo "app_version=$VERSION" >> $GITHUB_OUTPUT
+
+  - name: Extraer nombre
+    id: nombre
+    run: |
+     NOMBRE=$(jq -r '.name' package.json)
+     echo "NOMBRE=$NOMBRE" >> $GITHUB_ENV
+     echo "app_name=$NOMBRE" >> $GITHUB_OUTPUT
+    
+  - name: Cargar nombre imagen
+    id: cargar_imagen
+    uses: ./action
+    env:
+     username: ${{vars.DOCKERHUB_USER}}
+    with:
+     image_name: ${{steps.nombre.outputs.app_name}}
+     version: ${{steps.version.outputs.app_version}}
+  
+  - name: Declarar output
+    run: |
+     echo image_name_ci="${{steps.cargar_imagen.outputs.image_name}}" >> GITHUB_OUTPUT
+
+  - name: Build de la imagen
+    run: docker build -t ${{steps.cargar_imagen.outputs.image_name}} .
+
+  - name: Hacer login en DockerHub
+    uses: docker/login-action@v3
+    with:
+     username: ${{vars.DOCKERHUB_USER}}
+     password: ${{secrets.DOCKERHUB_PASS}}
+
+  - name: Subir imagen a DockerHub
+    run: docker push ${{steps.cargar_imagen.outputs.image_name}}
