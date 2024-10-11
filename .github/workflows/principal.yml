@@ -15,8 +15,9 @@ jobs:
   secrets: inherit
 
  descargar:
-  needs: cargar
+  needs: [cargar, entornos]
   if: github.ref == 'refs/heads/main'
   uses: ./.github/workflows/workflowCD.yml
   with:
    image_name_ci: ${{needs.cargar.outputs.image_name_ci}}
+   entorno: ${{needs.entorno.outputs.entorno}}
