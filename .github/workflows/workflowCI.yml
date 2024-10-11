@@ -9,6 +9,9 @@ on:
 jobs:
  ci:
   runs-on: ubuntu-latest
+  outputs:
+   image_name_ci: ${{steps.tag.outputs.image_name_ci}}
+
   steps:
   - uses: actions/checkout@v3
   
