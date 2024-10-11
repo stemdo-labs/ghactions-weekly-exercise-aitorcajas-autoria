@@ -12,10 +12,6 @@ jobs:
   outputs:
    entorno: ${{ steps.set_entorno.outputs.entorno }}
   steps:
-  - name: Obtener rama actual
-    id: get_ref
-    run: echo "GITHUB_REF=${GITHUB_REF}"
-
   - name: Elegir entorno
     id: set_entorno
     run: |
@@ -24,6 +20,3 @@ jobs:
      elif [[ "${GITHUB_REF}" == "refs/heads/development" ]]; then
       echo "entorno=UAT" >> $GITHUB_OUTPUT
      fi
-
-  - name: Mostrar entorno elegido
-    run: echo "El entorno elegido es ${{ steps.set_entorno.outputs.entorno }}"
