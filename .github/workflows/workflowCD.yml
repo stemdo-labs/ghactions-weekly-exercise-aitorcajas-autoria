@@ -3,7 +3,7 @@ name: CD
 on:
  workflow_call:
   inputs:
-   image_name:
+   image_name_ci:
     required: true
     type: string
 
