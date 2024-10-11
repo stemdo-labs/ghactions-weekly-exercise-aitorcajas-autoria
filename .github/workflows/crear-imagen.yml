@@ -38,8 +38,14 @@ jobs:
   - name: Hacer login en DockerHub
     uses: docker/login-action@v3
     with:
-     username: ${{ vars.DOCKERHUB_USER }}
-     password: ${{ secrets.DOCKERHUB_PASS }}
+     username: ${{vars.DOCKERHUB_USER}}
+     password: ${{secrets.DOCKERHUB_PASS}}
 
   - name: Subir imagen a DockerHub
     run: docker push ${{steps.cargar_imagen.outputs.image_name}}
+
+ descargar:
+  runs-on: ubuntu-latest
+  needs: cargar
+  if: github.ref == 'refs/heads/main'
+  
