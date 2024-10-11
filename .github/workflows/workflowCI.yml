@@ -2,16 +2,30 @@ name: CI
 
 on:
  workflow_call:
+  outputs:
+   image_name_ci: 
+    value: ${{jobs.ci.outputs.image_name_ci}}
 
 jobs:
+ tests:
+  if: github.ref == 'refs/heads/main'
+  environment: producción
+  runs-on: ubuntu-latest
+  steps: 
+  - name: Ejecutar tests
+    run: |
+     echo "Se van a ejecutar los tests"
+     sleep 10
+     echo "Los tests han sido ejecutados"
+
  ci:
   runs-on: ubuntu-latest
   outputs:
-   image_name_ci: ${{steps.cargar_imagen.outputs.image_name_ci}}
-   
+   image_name_ci: ${{steps.tag.outputs.image_name_ci}}
+
   steps:
   - uses: actions/checkout@v3
-
+  
   - name: Extraer version
     id: version
     run: |
@@ -34,10 +48,12 @@ jobs:
     with:
      image_name: ${{steps.nombre.outputs.app_name}}
      version: ${{steps.version.outputs.app_version}}
-  
-  - name: Declarar output
+
+  - name: Nombre tageado de la imagen
+    id: tag
     run: |
-     echo image_name_ci="${{steps.cargar_imagen.outputs.image_name}}" >> GITHUB_OUTPUT
+     TAG_IMAGEN="${{steps.cargar_imagen.outputs.image_name}}"
+     echo "image_name_ci=$TAG_IMAGEN" >> $GITHUB_OUTPUT   
 
   - name: Build de la imagen
     run: docker build -t ${{steps.cargar_imagen.outputs.image_name}} .

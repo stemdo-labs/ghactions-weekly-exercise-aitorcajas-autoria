@@ -5,18 +5,12 @@ on:
 
 jobs:
  cargar:
-  runs-on: ubuntu-latest
-  steps:
-  - name: hola
-    id: prueba
-    uses: ./.github/workflows/workflowCI.yml
-
-  - name: imprimir   
-    run: echo "${{steps.prueba.outputs.image_name_ci}}"
+  uses: ./.github/workflows/workflowCI.yml
+  secrets: inherit
 
  descargar:
   needs: cargar
-  if: github.ref == 'refs/heads/development' #CAMBIAR A MAIN
+  if: github.ref == 'refs/heads/main'
   uses: ./.github/workflows/workflowCD.yml
   with:
-   image_name: ${{needs.cargar.outputs.image_name}}
+   image_name_ci: ${{needs.cargar.outputs.image_name_ci}}

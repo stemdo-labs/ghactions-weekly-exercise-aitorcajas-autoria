@@ -3,7 +3,7 @@ name: CD
 on:
  workflow_call:
   inputs:
-   image_name:
+   image_name_ci:
     required: true
     type: string
 
@@ -13,10 +13,10 @@ jobs:
   environment: producción
   steps:
   - name: Descargar imagen
-    run: docker pull ${{inputs.image_name}}
+    run: docker pull ${{inputs.image_name_ci}}
 
   - name: Desplegar contenedor
-    run: docker run -d -p 80:8080 --name contenedor ${{inputs.image_name}}
+    run: docker run -d -p 80:8080 --name contenedor ${{inputs.image_name_ci}}
 
   - name: Hacer curl
     run: curl -I http://localhost:80
