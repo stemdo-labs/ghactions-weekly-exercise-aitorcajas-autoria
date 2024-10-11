@@ -7,7 +7,7 @@ jobs:
  ci:
   runs-on: ubuntu-latest
   outputs:
-   image_name_ci: ${{steps.cargar_imagen.outputs.image_name_ci}}
+   image_name_ci: ${{steps.cargar_imagen.outputs.image_name}}
    
   steps:
   - uses: actions/checkout@v3
