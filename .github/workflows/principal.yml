@@ -15,7 +15,7 @@ jobs:
     uses: ./.github/workflows/workflowCI.yml  # Invoca el workflow reusable
       
   - name: Imprimir nombre de la imagen
-    run: echo "Nombre de la imagen: ${{ steps.ci.outputs.image_name_ci }}"  # Accede al output del job 'ci'
+    run: echo "Nombre de la imagen ${{ steps.ci.outputs.image_name_ci }}"  # Accede al output del job 'ci'
 
  descargar:
   runs-on: ubuntu-latest
