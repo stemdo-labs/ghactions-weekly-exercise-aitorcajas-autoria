@@ -56,4 +56,7 @@ jobs:
     run: docker pull ${{needs.cargar.outputs.image_name}}
 
   - name: Desplegar contenedor
-    run: docker run -d --name contenedor ${{needs.cargar.outputs.image_name}}
+    run: docker run -d -p 80:80 --name contenedor ${{needs.cargar.outputs.image_name}}
+
+  - name: Hacer curl
+    run: curl httpd://localhost:80
