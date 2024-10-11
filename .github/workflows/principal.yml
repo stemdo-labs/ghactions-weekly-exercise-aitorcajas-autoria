@@ -5,11 +5,7 @@ on:
 
 jobs:
  cargar:
-  runs-on: ubuntu-latest
-  steps:
-  - uses: actions/checkout@v3
-  
-  - uses: ./.github/workflows/workflowCI.yml
+  uses: ./.github/workflows/workflowCI.yml
 
  descargar:
   needs: cargar
