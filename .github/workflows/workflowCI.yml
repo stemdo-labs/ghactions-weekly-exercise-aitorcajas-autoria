@@ -2,13 +2,13 @@ name: CI
 
 on:
  workflow_call:
-  inputs:
-   entorno:
-   type: string
-   required: true
   outputs:
    image_name_ci: 
     value: ${{jobs.ci.outputs.image_name_ci}}
+  inputs:
+   entorno:
+    type: string
+    required: true
 
 jobs:
  tests:
