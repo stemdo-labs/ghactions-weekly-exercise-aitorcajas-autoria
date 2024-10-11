@@ -9,12 +9,7 @@ jobs:
   steps:
   - uses: actions/checkout@v3
   
-  - name: hola
-    id: prueba
-    uses: ./.github/workflows/workflowCI.yml
-
-  - name: imprimir   
-    run: echo "${{steps.prueba.outputs.image_name_ci}}"
+  - uses: ./.github/workflows/workflowCI.yml
 
  descargar:
   needs: cargar
