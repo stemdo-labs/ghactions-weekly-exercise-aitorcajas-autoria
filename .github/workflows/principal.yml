@@ -6,6 +6,7 @@ on:
 jobs:
  cargar:
   uses: ./.github/workflows/workflowCI.yml
+  secrets: inherit
 
  descargar:
   needs: cargar
