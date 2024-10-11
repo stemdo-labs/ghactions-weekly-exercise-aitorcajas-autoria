@@ -1,28 +1,15 @@
 name: Workflow para crear la imagen
 
 on:
-  workflow_dispatch:
+ workflow_dispatch:
 
 jobs:
  cargar:
-  runs-on: ubuntu-latest
-  steps:
-  - name: Hacer checkout del repositorio
-    uses: actions/checkout@v3
-      
-  - name: Invocar CI Workflow
-    id: ci
-    uses: ./.github/workflows/workflowCI.yml  # Invoca el workflow reusable
-      
-  - name: Imprimir nombre de la imagen
-    run: echo "Nombre de la imagen ${{ steps.ci.outputs.image_name_ci }}"  # Accede al output del job 'ci'
+  uses: ./.github/workflows/workflowCI.yml
+  secrets: inherit
 
  descargar:
-  runs-on: ubuntu-latest
-  needs: cargar  # Especifica que este job necesita completarse antes de que este job inicie
-  if: github.ref == 'refs/heads/development'  # Cambiar a 'main' si es necesario
-  steps:
-  - name: Invocar CD Workflow
-    uses: ./.github/workflows/workflowCD.yml  # Invoca el workflow CD
-    with:
-     image_name: ${{ needs.cargar.outputs.image_name_ci }}  # Pasa el output del job 'cargar'
+  if: github.ref == 'refs/heads/development' #CAMBIAR A MAIN
+  uses: ./.github/workflows/workflowCD.yml
+  with:
+   image_name: ${{needs.cargar.outputs.image_name_ci}}
