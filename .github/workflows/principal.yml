@@ -4,13 +4,20 @@ on:
  workflow_dispatch:
 
 jobs:
+ entornos:
+  uses: ./.github/workflows/environments.yml
+
  cargar:
+  needs: entornos
   uses: ./.github/workflows/workflowCI.yml
+  with:
+   entorno: ${{needs.entornos.outputs.entorno}}
   secrets: inherit
 
  descargar:
-  needs: cargar
+  needs: [cargar, entornos]
   if: github.ref == 'refs/heads/main'
   uses: ./.github/workflows/workflowCD.yml
   with:
    image_name_ci: ${{needs.cargar.outputs.image_name_ci}}
+   entorno: ${{needs.entornos.outputs.entorno}}

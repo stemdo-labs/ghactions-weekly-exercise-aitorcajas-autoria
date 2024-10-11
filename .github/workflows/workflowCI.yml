@@ -5,12 +5,16 @@ on:
   outputs:
    image_name_ci: 
     value: ${{jobs.ci.outputs.image_name_ci}}
+  inputs:
+   entorno:
+    type: string
+    required: true
 
 jobs:
  tests:
-  if: github.ref == 'refs/heads/main'
-  environment: producción
+  if: github.ref != 'refs/heads/development'
   runs-on: ubuntu-latest
+  environment: ${{inputs.entorno}}
   steps: 
   - name: Ejecutar tests
     run: |
@@ -20,6 +24,9 @@ jobs:
 
  ci:
   runs-on: ubuntu-latest
+  if: ${{ always() }}
+  needs: tests
+  environment: ${{inputs.entorno}}
   outputs:
    image_name_ci: ${{steps.tag.outputs.image_name_ci}}
 
