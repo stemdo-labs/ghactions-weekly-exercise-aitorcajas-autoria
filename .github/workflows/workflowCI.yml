@@ -10,8 +10,8 @@ on:
 
 jobs:
  tests:
-  environment: ${{inputs.entorno}}
   runs-on: ubuntu-latest
+  environment: ${{inputs.entorno}}
   steps: 
   - name: Ejecutar tests
     run: |
