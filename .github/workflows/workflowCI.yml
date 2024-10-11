@@ -13,6 +13,7 @@ on:
 jobs:
  tests:
   runs-on: ubuntu-latest
+  if: ${{inputs.entorno}} == producción
   environment: ${{inputs.entorno}}
   steps: 
   - name: Ejecutar tests
@@ -23,6 +24,8 @@ jobs:
 
  ci:
   runs-on: ubuntu-latest
+  if: ${{ always() }}
+  needs: tests
   environment: ${{inputs.entorno}}
   outputs:
    image_name_ci: ${{steps.tag.outputs.image_name_ci}}
