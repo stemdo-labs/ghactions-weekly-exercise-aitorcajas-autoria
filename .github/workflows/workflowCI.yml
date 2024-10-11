@@ -24,7 +24,7 @@ jobs:
 
  ci:
   runs-on: ubuntu-latest
-  if: ${{ always() }}
+  #if: ${{ always() }}
   needs: tests
   environment: ${{inputs.entorno}}
   outputs:
