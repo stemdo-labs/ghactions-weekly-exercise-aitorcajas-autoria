@@ -2,14 +2,15 @@ name: CI
 
 on:
  workflow_call:
+  inputs:
+   entorno:
   outputs:
    image_name_ci: 
     value: ${{jobs.ci.outputs.image_name_ci}}
 
 jobs:
  tests:
-  if: github.ref == 'refs/heads/main'
-  environment: producción
+  environment: ${{inputs.entorno}}
   runs-on: ubuntu-latest
   steps: 
   - name: Ejecutar tests
@@ -20,6 +21,7 @@ jobs:
 
  ci:
   runs-on: ubuntu-latest
+  environment: ${{inputs.entorno}}
   outputs:
    image_name_ci: ${{steps.tag.outputs.image_name_ci}}
 
