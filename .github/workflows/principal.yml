@@ -9,6 +9,7 @@ jobs:
   secrets: inherit
 
  descargar:
+  needs: cargar
   if: github.ref == 'refs/heads/development' #CAMBIAR A MAIN
   uses: ./.github/workflows/workflowCD.yml
   with:
