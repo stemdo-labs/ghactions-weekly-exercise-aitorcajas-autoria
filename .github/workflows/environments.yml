@@ -10,18 +10,18 @@ jobs:
  entorno:
   runs-on: ubuntu-latest
   outputs:
-   entorno: ${{steps.entorno.outputs.entorno}}
+   entorno: ${{steps.elegir.outputs.entorno}}
   steps:
   - name: Elegir entorno
-    id: entorno
+    id: elegir
     run: |
      if [github.ref == 'refs/heads/main']; then
       echo ENTORNO="producción" >> GITHUB_ENV
-      echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
+      echo "environment=$ENTORNO" >> GITHUB_OUTPUT
      elif [github.ref == 'refs/heads/development']; then
       echo ENTORNO="UAT" >> GITHUB_ENV
-      echo "entorno=$ENTORNO" >> GITHUB_OUTPUT
+      echo "environment=$ENTORNO" >> GITHUB_OUTPUT
      fi
 
   - name: Mostrar
-    run: echo "${{steps.entorno.outputs.entorno}}"
+    run: echo "${{steps.elegir.outputs.environment}}"
