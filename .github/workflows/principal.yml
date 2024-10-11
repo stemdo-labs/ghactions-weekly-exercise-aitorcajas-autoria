@@ -13,4 +13,4 @@ jobs:
   if: github.ref == 'refs/heads/development' #CAMBIAR A MAIN
   uses: ./.github/workflows/workflowCD.yml
   with:
-   image_name: ${{needs.cargar.outputs.image_name}}
+   image_name: ${{needs.cargar.outputs.image_name_ci}}
