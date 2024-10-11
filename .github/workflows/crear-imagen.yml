@@ -47,16 +47,8 @@ jobs:
     run: docker push ${{steps.cargar_imagen.outputs.image_name}}
 
  descargar:
-  runs-on: ubuntu-latest
   needs: cargar
   if: github.ref == 'refs/heads/development' #CAMBIAR A MAIN
-  environment: producción
-  steps:
-  - name: Descargar imagen
-    run: docker pull ${{needs.cargar.outputs.image_name}}
-
-  - name: Desplegar contenedor
-    run: docker run -d -p 80:8080 --name contenedor ${{needs.cargar.outputs.image_name}}
-
-  - name: Hacer curl
-    run: curl -I http://localhost:80
+  uses: ./.github/workflows/workflowCD.yml
+  with:
+   image_name: ${{needs.cargar.outputs.image_name}}
