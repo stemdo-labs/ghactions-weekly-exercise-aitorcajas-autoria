@@ -1,7 +1,10 @@
 name: Workflow para crear la imagen
 
 on:
- workflow_dispatch:
+ push:
+  branches:
+  - main
+  - development
 
 jobs:
  entornos:
