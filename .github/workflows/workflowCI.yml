@@ -59,8 +59,13 @@ jobs:
   - name: Nombre tageado de la imagen
     id: tag
     run: |
-     TAG_IMAGEN="${{steps.cargar_imagen.outputs.image_name}}"
-     echo "image_name_ci=$TAG_IMAGEN" >> $GITHUB_OUTPUT   
+     if [[ "${{inputs.entorno}}" == "UAT" ]]; then
+      TAG_IMAGEN="${{steps.cargar_imagen.outputs.image_name}}-snapshot"
+      echo "image_name_ci=$TAG_IMAGEN" >> $GITHUB_OUTPUT
+     elif [[ "${{inputs.entorno}}" == "producción" ]]; then
+      TAG_IMAGEN="${{steps.cargar_imagen.outputs.image_name}}"
+      echo "image_name_ci=$TAG_IMAGEN" >> $GITHUB_OUTPUT 
+     fi   
 
   - name: Build de la imagen
     run: docker build -t ${{steps.cargar_imagen.outputs.image_name}} .
